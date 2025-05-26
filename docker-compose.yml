@@ -1,13 +1,19 @@
-version: '3'
 services:
   mongo:
-    image: mongo:4.4.4
-    container_name: mongo
+    image: mongo:8.0
+    container_name: mongodb
     restart: always
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=admin
     ports:
-      - 27017:27017
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
     volumes:
-      - ./mongo-data-4.4:/data/db
+      - mongo-data-8.0:/data/db # Persist MongoDB data
+      - mongo-config-8.0:/data/configdb # Persist MongoDB configuration
+
+volumes:
+  mongo-data-8.0:
+    driver: local
+  mongo-config-8.0:
+    driver: local

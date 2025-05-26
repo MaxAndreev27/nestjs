@@ -14,7 +14,7 @@ export class AppController {
         // return this.appService.getHello();
         // const test: string = this.configService.get('TEST');
         // if (test) {
-        return this.configService.get('TEST');
+        return this.configService.get('MONGO_PORT');
         // }
     }
 }
