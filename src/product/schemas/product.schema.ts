@@ -14,9 +14,6 @@ export type ProductDocument = HydratedDocument<Product>;
 @Schema()
 export class Product {
     @Prop()
-    _id: string;
-
-    @Prop()
     image: string;
 
     @Prop()

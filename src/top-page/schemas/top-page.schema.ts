@@ -34,9 +34,6 @@ export type TopPageDocument = HydratedDocument<TopPage>;
 
 @Schema()
 export class TopPage {
-    @Prop()
-    _id: string;
-
     @Prop({ enum: TopLevelCategory })
     firstCategory: TopLevelCategory;
 

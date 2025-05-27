@@ -5,9 +5,6 @@ export type ReviewDocument = HydratedDocument<Review>;
 @Schema()
 export class Review {
     @Prop()
-    _id: string;
-
-    @Prop()
     name: string;
 
     @Prop()
