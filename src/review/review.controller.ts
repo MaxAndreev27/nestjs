@@ -31,6 +31,23 @@ export class ReviewController {
         }
     }
 
-    @Get('byProduct/:productId')
-    async getByProduct(@Param('productId') productId: string) {}
+    @Get('findAll')
+    async findAll() {
+        return this.reviewService.findAll();
+    }
+
+    @Get(':id')
+    async findOne(@Param('id') id: string) {
+        return this.reviewService.findOne(id);
+    }
+
+    @Get('findByProductId/:productId')
+    async findByProductId(@Param('productId') productId: string) {
+        return this.reviewService.findByProductId(productId);
+    }
+
+    @Delete('deleteByProductId/:productId')
+    async deleteByProductId(@Param('productId') productId: string) {
+        return this.reviewService.deleteByProductId(productId);
+    }
 }

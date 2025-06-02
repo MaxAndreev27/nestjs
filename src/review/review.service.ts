@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { Review } from './schemas/review.schema';
 import { CreateReviewDto } from './dto/create-review.dto';
 
@@ -18,6 +18,7 @@ export class ReviewService {
     async findAll(): Promise<Review[]> {
         return this.reviewModel.find().exec();
     }
+
     async findOne(id: string): Promise<Review | null> {
         return this.reviewModel.findOne({ _id: id }).exec();
     }
@@ -30,17 +31,7 @@ export class ReviewService {
         return this.reviewModel.deleteMany({ productId: productId }).exec();
     }
 
-    async findByParentId(productId: string): Promise<Review[]> {
-        return this.reviewModel.find({
-            where: { productId: { id: productId } },
-            relations: ['product'], // Optional: Include parent data in the result
-        });
-    }
-
     async delete(id: string): Promise<Review | null> {
-        const deletedReview = await this.reviewModel
-            .findByIdAndDelete({ _id: id })
-            .exec();
-        return deletedReview;
+        return await this.reviewModel.findByIdAndDelete({ _id: id }).exec();
     }
 }
