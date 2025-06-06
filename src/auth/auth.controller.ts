@@ -2,7 +2,12 @@ import {
     BadRequestException,
     Body,
     Controller,
+    Delete,
+    Get,
     HttpCode,
+    HttpException,
+    HttpStatus,
+    Param,
     Post,
     UsePipes,
     ValidationPipe,
@@ -22,6 +27,27 @@ export class AuthController {
             throw new BadRequestException(ALREADY_REGISTERED_ERROR);
         }
         return this.authService.createUser(dto);
+    }
+
+    @Delete(':id')
+    async delete(@Param('id') id: string) {
+        const deletedUser = this.authService.delete(id);
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        if (!deletedUser) {
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        } else {
+            return deletedUser;
+        }
+    }
+
+    @Get('findAll')
+    async findAll() {
+        return this.authService.findAll();
+    }
+
+    @Get(':id')
+    async findOne(@Param('id') id: string) {
+        return this.authService.findOne(id);
     }
 
     @HttpCode(200)

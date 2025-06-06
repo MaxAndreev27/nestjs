@@ -14,12 +14,24 @@ export class AuthService {
         const salt = genSaltSync(10);
         const newUser = new this.userModel({
             email: dto.login,
-            passwordHash: hashSync(dto.password, salt),
+            password: hashSync(dto.password, salt),
         });
         return newUser.save();
     }
 
+    async findAll(): Promise<User[]> {
+        return this.userModel.find().exec();
+    }
+
+    async findOne(id: string): Promise<User | null> {
+        return this.userModel.findOne({ _id: id }).exec();
+    }
+
     async findUser(email: string): Promise<User | null> {
         return this.userModel.findOne({ email: email }).exec();
+    }
+
+    async delete(id: string): Promise<User | null> {
+        return await this.userModel.findByIdAndDelete({ _id: id }).exec();
     }
 }
