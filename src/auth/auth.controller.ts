@@ -9,12 +9,14 @@ import {
     HttpStatus,
     Param,
     Post,
+    UseGuards,
     UsePipes,
     ValidationPipe,
 } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { ALREADY_REGISTERED_ERROR } from './auth.constants';
+import { JwtAuthGuard } from './guards/jwt.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -40,6 +42,7 @@ export class AuthController {
         }
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get('findAll')
     async findAll() {
         return this.authService.findAll();
