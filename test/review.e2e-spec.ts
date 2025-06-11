@@ -5,8 +5,14 @@ import { App } from 'supertest/types';
 import { AppModule } from './../src/app.module';
 import { CreateReviewDto } from '../src/review/dto/create-review.dto';
 import { Types } from 'mongoose';
+import { AuthDto } from '../src/auth/dto/auth.dto';
 
 const productId = new Types.ObjectId().toHexString();
+
+const loginDto: AuthDto = {
+    login: 'editor@gmail.com',
+    password: '123',
+};
 
 const createReviewDto: CreateReviewDto = {
     name: 'Test name',
@@ -19,6 +25,7 @@ const createReviewDto: CreateReviewDto = {
 describe('AppController (e2e)', () => {
     let app: INestApplication<App>;
     let createdId: string;
+    let token: string;
 
     beforeEach(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -27,6 +34,11 @@ describe('AppController (e2e)', () => {
         app = moduleFixture.createNestApplication();
         await app.init();
         console.log(productId);
+
+        const { body } = await request(app.getHttpServer())
+            .post('/auth/login')
+            .send(loginDto);
+        token = body.access_token;
     });
 
     afterAll(async () => {
@@ -93,6 +105,7 @@ describe('AppController (e2e)', () => {
     it('/review/:id (DELETE) - success', async () => {
         return request(app.getHttpServer())
             .delete('/review/' + createdId)
+            .set('Authorization', `Bearer ${token}`)
             .expect(200)
             .expect((res) => {
                 expect(res.body).toBeDefined();
