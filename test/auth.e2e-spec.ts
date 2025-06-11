@@ -3,11 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from './../src/app.module';
-import { CreateReviewDto } from '../src/review/dto/create-review.dto';
-import { Types } from 'mongoose';
 import { AuthDto } from '../src/auth/dto/auth.dto';
-
-const productId = new Types.ObjectId().toHexString();
 
 const loginDto: AuthDto = {
     login: 'editor@gmail.com',
@@ -16,8 +12,6 @@ const loginDto: AuthDto = {
 
 describe('AuthController (e2e)', () => {
     let app: INestApplication<App>;
-    let createdId: string;
-    let token: string;
 
     beforeEach(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({
