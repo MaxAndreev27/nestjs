@@ -49,8 +49,8 @@ export class AuthController {
     }
 
     @Get(':id')
-    async findOne(@Param('id') id: string) {
-        return this.authService.findOne(id);
+    async findById(@Param('id') id: string) {
+        return this.authService.findById(id);
     }
 
     @UsePipes(new ValidationPipe())

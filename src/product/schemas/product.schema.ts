@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Document, HydratedDocument, Types } from 'mongoose';
+import { Review } from '../../review/schemas/review.schema';
 
 class ProductCharacteristic {
     @Prop()
@@ -11,8 +12,8 @@ class ProductCharacteristic {
 
 export type ProductDocument = HydratedDocument<Product>;
 
-@Schema()
-export class Product {
+@Schema({ timestamps: true })
+export class Product extends Document {
     @Prop()
     image: string;
 
@@ -23,13 +24,10 @@ export class Product {
     price: number;
 
     @Prop()
-    oldPrice: number;
+    oldPrice?: number;
 
     @Prop()
     credit: number;
-
-    @Prop()
-    calculatedRating: number;
 
     @Prop()
     description: string;
@@ -48,6 +46,9 @@ export class Product {
 
     @Prop({ type: [ProductCharacteristic], _id: false })
     characteristics: ProductCharacteristic[];
+
+    @Prop({ type: [{ type: Types.ObjectId, ref: 'Review' }] })
+    reviews: Review[]; // Array of Review ObjectIds
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

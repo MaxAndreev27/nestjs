@@ -1,9 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { Document, HydratedDocument, Types } from 'mongoose';
+import { Product } from '../../product/schemas/product.schema';
 
 export type ReviewDocument = HydratedDocument<Review>;
-@Schema()
-export class Review {
+@Schema({ timestamps: true })
+export class Review extends Document {
     @Prop()
     name: string;
 
@@ -19,8 +20,8 @@ export class Review {
     @Prop()
     createdAt: Date;
 
-    @Prop()
-    productId: Types.ObjectId;
+    @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
+    productId: Product; // Single Product ObjectId
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(Review);

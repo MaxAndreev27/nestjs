@@ -43,8 +43,8 @@ export class ReviewController {
     }
 
     @Get(':id')
-    async findOne(@Param('id') id: string) {
-        return this.reviewService.findOne(id);
+    async findById(@Param('id') id: string) {
+        return this.reviewService.findById(id);
     }
 
     @Get('findByProductId/:productId')

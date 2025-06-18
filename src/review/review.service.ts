@@ -16,15 +16,21 @@ export class ReviewService {
     }
 
     async findAll(): Promise<Review[]> {
-        return this.reviewModel.find().exec();
+        return this.reviewModel.find().populate('productId').exec();
     }
 
-    async findOne(id: string): Promise<Review | null> {
-        return this.reviewModel.findOne({ _id: id }).exec();
+    async findById(id: string): Promise<Review | null> {
+        return this.reviewModel
+            .findOne({ _id: id })
+            .populate('productId')
+            .exec();
     }
 
     async findByProductId(productId: string): Promise<Review[]> {
-        return this.reviewModel.find({ productId: productId }).exec();
+        return this.reviewModel
+            .find({ productId: productId })
+            .populate('productId')
+            .exec();
     }
 
     async deleteByProductId(productId: string) {

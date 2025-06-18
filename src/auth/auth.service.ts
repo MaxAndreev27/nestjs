@@ -26,7 +26,7 @@ export class AuthService {
         return this.userModel.find().exec();
     }
 
-    async findOne(id: string): Promise<User | null> {
+    async findById(id: string): Promise<User | null> {
         return this.userModel.findOne({ _id: id }).exec();
     }
 

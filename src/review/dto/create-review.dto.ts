@@ -1,4 +1,4 @@
-import { IsString, IsNumber, Max, Min } from 'class-validator';
+import { IsString, IsNumber, Max, Min, IsMongoId } from 'class-validator';
 
 export class CreateReviewDto {
     @IsString()
@@ -15,6 +15,7 @@ export class CreateReviewDto {
     @Max(5, { message: 'Повинно бути менше 5' })
     rating: number;
 
+    @IsMongoId()
     @IsString()
     productId: string;
 }
