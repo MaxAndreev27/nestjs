@@ -59,13 +59,27 @@ export class ProductService {
                         from: 'reviews', // The collection to join with (lowercase, plural of model name)
                         localField: 'reviews', // Field from the input documents (Product's 'reviews' array)
                         foreignField: '_id', // Field from the "from" documents (Review's '_id')
-                        as: 'populatedReviews', // The name of the new array field to add to the input documents
+                        as: 'reviews', // The name of the new array field to add to the input documents
                     },
                 },
                 {
                     $addFields: {
-                        reviewCount: { $size: '$populatedReviews' },
-                        reviewAvg: { $avg: '$populatedReviews.rating' },
+                        reviewCount: { $size: '$reviews' },
+                        reviewAvg: { $avg: '$reviews.rating' },
+                        reviews: {
+                            $function: {
+                                body: `function (reviews) {
+                                    reviews.sort(
+                                        (a, b) =>
+                                            new Date(a.createdAt) -
+                                            new Date(b.createdAt),
+                                    );
+                                    return reviews;
+                                }`,
+                                args: ['$reviews'],
+                                lang: 'js',
+                            },
+                        },
                     },
                 },
             ])
