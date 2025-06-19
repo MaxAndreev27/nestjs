@@ -14,6 +14,7 @@ import {
 import { ReviewService } from './review.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { IdValidationPipe } from '../pipes/id-validation.pipe';
 
 @Controller('review')
 export class ReviewController {
@@ -27,7 +28,7 @@ export class ReviewController {
 
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
-    async delete(@Param('id') id: string) {
+    async delete(@Param('id', IdValidationPipe) id: string) {
         const deletedReview = this.reviewService.delete(id);
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         if (!deletedReview) {
@@ -43,17 +44,21 @@ export class ReviewController {
     }
 
     @Get(':id')
-    async findById(@Param('id') id: string) {
+    async findById(@Param('id', IdValidationPipe) id: string) {
         return this.reviewService.findById(id);
     }
 
     @Get('findByProductId/:productId')
-    async findByProductId(@Param('productId') productId: string) {
+    async findByProductId(
+        @Param('productId', IdValidationPipe) productId: string,
+    ) {
         return this.reviewService.findByProductId(productId);
     }
 
     @Delete('deleteByProductId/:productId')
-    async deleteByProductId(@Param('productId') productId: string) {
+    async deleteByProductId(
+        @Param('productId', IdValidationPipe) productId: string,
+    ) {
         return this.reviewService.deleteByProductId(productId);
     }
 }

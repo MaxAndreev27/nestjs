@@ -17,6 +17,7 @@ import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { ALREADY_REGISTERED_ERROR } from './auth.constants';
 import { JwtAuthGuard } from './guards/jwt.guard';
+import { IdValidationPipe } from '../pipes/id-validation.pipe';
 
 @Controller('auth')
 export class AuthController {
@@ -32,7 +33,7 @@ export class AuthController {
     }
 
     @Delete(':id')
-    async delete(@Param('id') id: string) {
+    async delete(@Param('id', IdValidationPipe) id: string) {
         const deletedUser = this.authService.delete(id);
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         if (!deletedUser) {
@@ -49,7 +50,7 @@ export class AuthController {
     }
 
     @Get(':id')
-    async findById(@Param('id') id: string) {
+    async findById(@Param('id', IdValidationPipe) id: string) {
         return this.authService.findById(id);
     }
 
