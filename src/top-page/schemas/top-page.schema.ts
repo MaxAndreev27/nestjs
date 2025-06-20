@@ -43,7 +43,7 @@ export class TopPage {
     @Prop({ unique: true })
     alias: string;
 
-    @Prop()
+    @Prop({ index: true })
     title: string;
 
     @Prop()
@@ -55,7 +55,7 @@ export class TopPage {
     @Prop({ type: [TopPageAdvantage] })
     advantages: TopPageAdvantage[];
 
-    @Prop()
+    @Prop({ index: true })
     seoText: string;
 
     @Prop()

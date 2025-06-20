@@ -38,6 +38,27 @@ export class TopPageService {
             .exec();
     }
 
+    async findByText(text: string) {
+        // return this.topPageModel
+        // .find({
+        //     $text: {
+        //         $search: text,
+        //         $caseSensitive: false,
+        //     },
+        // })
+        // .exec();
+        return this.topPageModel
+            .find({
+                $or: [
+                    { title: { $regex: text, $options: 'i' } },
+                    { seoText: { $regex: text, $options: 'i' } },
+                    { tagsTitle: { $regex: text, $options: 'i' } },
+                    { tags: { $in: [text] } }, // Search within the tags array
+                ],
+            })
+            .exec();
+    }
+
     async updateById(id: string, dto: CreateTopPageDto) {
         return this.topPageModel
             .findByIdAndUpdate(id, dto, { new: true })
