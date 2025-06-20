@@ -7,8 +7,6 @@ import {
     TopPageDocument,
 } from './schemas/top-page.schema';
 import { CreateTopPageDto } from './dto/create-top-page.dto';
-import { ProductDocument } from '../product/schemas/product.schema';
-import { CreateProductDto } from '../product/dto/create-product.dto';
 
 @Injectable()
 export class TopPageService {

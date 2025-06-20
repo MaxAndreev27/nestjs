@@ -12,7 +12,6 @@ import {
     UsePipes,
     ValidationPipe,
 } from '@nestjs/common';
-import { TopPage } from './schemas/top-page.schema';
 import { FindTopPageDto } from './dto/find-top-page.dto';
 import { TopPageService } from './top-page.service';
 import { CreateTopPageDto } from './dto/create-top-page.dto';
