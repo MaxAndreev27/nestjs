@@ -12,6 +12,17 @@ services:
       - mongo-data-8.0:/data/db # Persist MongoDB data
       - mongo-config-8.0:/data/configdb # Persist MongoDB configuration
 
+  backend:
+    image: maxandreev27/top-api:latest
+    container_name: top-api
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    volumes:
+      - ./.env:/opt/app/.env
+
 volumes:
   mongo-data-8.0:
     driver: local
