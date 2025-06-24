@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3 actions/checkout@master
       - name: Publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@v5
+        uses: elgohr/Publish-Docker-Github-Action@master
         with:
           registry: docker.pkg.github.com
           name: docker.pkg.github.com/MaxAndreev27/nestjs/nestjs-demo
