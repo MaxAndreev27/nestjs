@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 actions/checkout@master
+      - uses: MaxAndreev27/nestjs@main
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
