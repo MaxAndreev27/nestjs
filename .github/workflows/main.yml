@@ -12,6 +12,6 @@ jobs:
         with:
           registry: docker.pkg.github.com
           name: docker.pkg.github.com/MaxAndreev27/nestjs/nestjs-demo
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: maxandreev27
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: "develop"
