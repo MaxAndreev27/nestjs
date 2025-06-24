@@ -1,12 +1,12 @@
 name: Publish Docker
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3 actions/checkout@master
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
