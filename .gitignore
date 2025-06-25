@@ -58,3 +58,6 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # MongoDB
 /mongo-data-*
+
+# Directory for file uploads
+/uploads
