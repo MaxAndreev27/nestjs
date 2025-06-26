@@ -4,8 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { format, subDays } from 'date-fns';
 import { Builder } from 'xml2js';
 import { CATEGORY_URL } from './sitemap.constants';
-import { TopPage, TopPageDocument } from '../top-page/schemas/top-page.schema';
-import { Document } from 'mongoose';
+import { TopPageDocument } from '../top-page/schemas/top-page.schema';
 
 @Controller('sitemap')
 export class SitemapController {
