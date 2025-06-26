@@ -12,5 +12,6 @@ import { TopPage, TopPageSchema } from './schemas/top-page.schema';
     ],
     controllers: [TopPageController],
     providers: [TopPageService],
+    exports: [TopPageService],
 })
 export class TopPageModule {}

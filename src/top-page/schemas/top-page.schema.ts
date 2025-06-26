@@ -20,6 +20,9 @@ export class HhData {
 
     @Prop()
     seniorSalary: number;
+
+    @Prop()
+    updatedAt: Date;
 }
 
 export class TopPageAdvantage {
@@ -63,6 +66,9 @@ export class TopPage {
 
     @Prop({ type: [String] })
     tags: string[];
+
+    createdAt?: Date; // Optional, as Mongoose adds it
+    updatedAt?: Date; // Optional, as Mongoose adds it
 }
 
 export const TopPageSchema = SchemaFactory.createForClass(TopPage);
