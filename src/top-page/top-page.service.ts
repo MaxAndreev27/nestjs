@@ -7,6 +7,7 @@ import {
     TopPageDocument,
 } from './schemas/top-page.schema';
 import { CreateTopPageDto } from './dto/create-top-page.dto';
+import { addDays } from 'date-fns';
 
 @Injectable()
 export class TopPageService {
@@ -77,5 +78,17 @@ export class TopPageService {
 
     async delete(id: string): Promise<TopPageDocument | null> {
         return this.topPageModel.findByIdAndDelete({ _id: id }).exec();
+    }
+
+    async findForHhUpdate(date: Date) {
+        return this.topPageModel
+            .find({
+                firstCategory: 0,
+                $or: [
+                    { 'hh.updatedAt': { $lt: addDays(date, -1) } },
+                    { 'hh.updatedAt': { $exists: false } },
+                ],
+            })
+            .exec();
     }
 }

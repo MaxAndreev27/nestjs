@@ -17,10 +17,14 @@ import { TopPageService } from './top-page.service';
 import { CreateTopPageDto } from './dto/create-top-page.dto';
 import { IdValidationPipe } from '../pipes/id-validation.pipe';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { HhService } from '../hh/hh.service';
 
 @Controller('top-page')
 export class TopPageController {
-    constructor(private readonly topPageService: TopPageService) {}
+    constructor(
+        private readonly topPageService: TopPageService,
+        private readonly hhService: HhService,
+    ) {}
 
     @UseGuards(JwtAuthGuard)
     @UsePipes(new ValidationPipe())
@@ -86,5 +90,16 @@ export class TopPageController {
     @Get('textSearch/:text')
     async textSearch(@Param('text') text: string) {
         return this.topPageService.findByText(text);
+    }
+
+    @Post('test')
+    async test() {
+        const data = await this.topPageService.findForHhUpdate(new Date());
+        // eslint-disable-next-line
+        for (let page of data) {
+            const hhData = await this.hhService.getData(page.category);
+            page.hh = hhData;
+            await this.topPageService.updateById(page._id.toString(), page);
+        }
     }
 }

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
 export enum TopLevelCategory {
     Courses,
@@ -37,6 +37,9 @@ export type TopPageDocument = HydratedDocument<TopPage>;
 
 @Schema({ timestamps: true })
 export class TopPage {
+    @Prop()
+    _id: Types.ObjectId;
+
     @Prop({ enum: TopLevelCategory })
     firstCategory: TopLevelCategory;
 
