@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/MaxAndreev27/nestjs/security/advisories/new
+    about: Report security issues privately. Do not open a public issue.
+  - name: Support
+    url: https://github.com/MaxAndreev27/nestjs/blob/main/SUPPORT.md
+    about: Read the support and troubleshooting guidelines.
